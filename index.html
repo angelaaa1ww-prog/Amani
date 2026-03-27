@@ -1,297 +1,316 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="assets/css/styles.css">
-<link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
-<title>Amani Portfolio</title>
-<style>
-body {font-family: 'Poppins', sans-serif; background: #fff; color: #222; margin: 0; padding: 0;}
-.section-title {text-align:center; font-size: 2rem; margin-bottom: 2rem;}
-.nav__logo {font-weight: 700; font-size: 1.8rem;}
-.nav__link {color:#222; font-weight: 500;}
-.nav__link.active-link {color:#3b3bff;}
-.nav__toggle i {font-size: 1.8rem; cursor: pointer;}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-/* Home - original restored */
-.home {display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:8rem 2rem; background:#f0f4ff;}
-.home__title {font-size:3rem; font-weight:700; margin-bottom:0.5rem; color:#3b3bff;}
-.home__profession {font-size:1.5rem; margin-bottom:2rem; color:#555;}
-.home__img img {width:250px; border-radius:50%; margin-top:2rem; border:4px solid #3b3bff;}
-.home__social a {margin:0 10px; font-size:1.8rem; color:#3b3bff; transition:0.3s;}
-.home__social a:hover {color:#00d4ff;}
-.button {background:#3b3bff; color:#fff; padding:10px 20px; border:none; border-radius:5px; cursor:pointer; font-weight:600; text-decoration:none; transition:0.3s;}
-.button:hover {background:#00d4ff;}
+    <link rel="stylesheet" href="assets/css/styles.css">
 
-/* About */
-.about__container {display:flex; align-items:center; gap:2rem; flex-wrap:wrap; padding:2rem;}
-.about__img img {width:350px; border-radius:10px;}
-.about__subtitle {font-size:1.8rem; font-weight:700; margin-bottom:1rem;}
-.about__text {font-size:1.1rem; line-height:1.6;}
+    <!-- =====BOX ICONS===== -->
+    <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
 
-/* Skills */
-.skills__container {display:flex; flex-wrap:wrap; gap:2rem; padding:2rem;}
-.skills__data {margin-bottom: 20px; width:100%;}
-.skills__names {font-weight:600; margin-bottom:5px; display:flex; align-items:center; gap:10px;}
-.skills__icon {font-size:1.3rem; color:#3b3bff;}
-.skills__bar-container {width:100%; background:#e0e0e0; border-radius:25px; overflow:hidden; height:25px; margin-bottom:10px;}
-.skills__bar {height:100%; width:0%; background: linear-gradient(90deg, #3b3bff, #00d4ff); border-radius:25px; display:flex; align-items:center; justify-content:flex-end; padding-right:10px; color:#fff; font-weight:600; transition: width 1.2s ease-in-out;}
-.skills__percentage {font-size:0.9rem;}
+    <title>Amani Portfolio</title>
 
-/* Work Sections */
-.work__sector {padding:2rem; margin-bottom:3rem; background:#f9f9f9; border-radius:10px;}
-.work__sector h3 {font-size:1.5rem; margin-bottom:1rem; text-align:center;}
-.work__sector p {text-align:center; margin-bottom:1.5rem;}
-.work__container {display:grid; grid-template-columns: repeat(auto-fit,minmax(280px,1fr)); gap:1.5rem;}
-.work__img {position:relative; overflow:hidden; border-radius:10px; cursor:pointer;}
-.work__img img, .work__img video {width:100%; border-radius:10px;}
-.work__img:hover img, .work__img:hover video {transform: scale(1.05); transition:0.3s;}
+    <style>
+        /* ===== Modal for images/videos ===== */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            padding-top: 50px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.8);
+        }
+        .modal-content {
+            margin: auto;
+            display: block;
+            max-width: 80%;
+            max-height: 80%;
+            border-radius: 10px;
+            animation: zoomIn 0.3s ease;
+        }
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .modal-close:hover {
+            color: #4db5ff;
+        }
+        @keyframes zoomIn {
+            from {transform: scale(0.5); opacity: 0;}
+            to {transform: scale(1); opacity: 1;}
+        }
 
-/* Lightbox */
-.lightbox {display:none; position:fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.8); justify-content:center; align-items:center; z-index:9999;}
-.lightbox img, .lightbox video {max-width:90%; max-height:90%; border-radius:10px;}
-.lightbox .close {position:absolute; top:20px; right:30px; font-size:2rem; color:#fff; cursor:pointer;}
+        /* Project gallery */
+        .project-gallery {
+            display: flex;
+            gap: 15px;
+            overflow-x: auto;
+            padding: 10px 0;
+        }
+        .project-gallery img, .project-gallery video {
+            width: 200px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .project-gallery img:hover, .project-gallery video:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
 
-/* Contact */
-.contact__form {display:flex; flex-direction:column; gap:15px; width:100%; max-width:500px; margin:auto;}
-.contact__input {padding:10px; border:1px solid #ccc; border-radius:5px;}
-.contact__button {background:#3b3bff; color:#fff; padding:10px; border:none; border-radius:5px; cursor:pointer; font-weight:600;}
-
-/* Footer */
-.footer {text-align:center; padding:20px; background:#f7f7f7;}
-.footer__social a {margin:0 10px; font-size:1.5rem; color:#3b3bff;}
-</style>
+        /* Widen project titles */
+        .project-title {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #4db5ff;
+        }
+    </style>
 </head>
 <body>
+    <!--===== HEADER =====-->
+    <header class="l-header">
+        <nav class="nav bd-grid">
+            <div>
+                <a href="#" class="nav__logo">Amani</a>
+            </div>
 
-<!-- HEADER -->
-<header class="l-header">
-  <nav class="nav bd-grid">
-    <div><a href="#" class="nav__logo">Amani</a></div>
-    <div class="nav__menu" id="nav-menu">
-      <ul class="nav__list">
-        <li class="nav__item"><a href="#home" class="nav__link active-link">Home</a></li>
-        <li class="nav__item"><a href="#about" class="nav__link">About</a></li>
-        <li class="nav__item"><a href="#skills" class="nav__link">Skills</a></li>
-        <li class="nav__item"><a href="#work" class="nav__link">Work</a></li>
-        <li class="nav__item"><a href="#contact" class="nav__link">Contact</a></li>
-      </ul>
-    </div>
-    <div class="nav__toggle" id="nav-toggle"><i class='bx bx-menu'></i></div>
-  </nav>
-</header>
+            <div class="nav__menu" id="nav-menu">
+                <ul class="nav__list">
+                    <li class="nav__item"><a href="#home" class="nav__link active-link">Home</a></li>
+                    <li class="nav__item"><a href="#about" class="nav__link">About</a></li>
+                    <li class="nav__item"><a href="#skills" class="nav__link">Skills</a></li>
+                    <li class="nav__item"><a href="#work" class="nav__link">Work</a></li>
+                    <li class="nav__item"><a href="#contact" class="nav__link">Contact</a></li>
+                </ul>
+            </div>
 
-<!-- HOME - restored original design -->
-<section class="home" id="home">
-  <h1 class="home__title"> I am Amani</h1>
-  <p class="home__profession">A Web designer and Developer</p>
-  <a href="#contact" class="button">Contact Me</a>
-  <div class="home__social">
-    <a href="https://github.com/angelaaa1ww-prog/inspire-steam"><i class='bx bxl-github'></i></a>
-    <a href="https://www.instagram.com/instrumental_amani/"><i class='bx bxl-instagram'></i></a>
-  </div>
-  <div class="home__img">
-    <img src="/Web_basics/Assets/Image/BeautyPlus_20260223140613211_save.jpg" alt="Amani">
-  </div>
-</section>
+            <div class="nav__toggle" id="nav-toggle">
+                <i class='bx bx-menu'></i>
+            </div>
+        </nav>
+    </header>
 
-<!-- ABOUT -->
-<section class="about section" id="about">
-  <h2 class="section-title">About Me</h2>
-  <div class="about__container bd-grid">
-    <div class="about__img">
-      <img src="/Web_basics/Assets/Image/BeautyPlus_20260223140613211_save.jpg" alt="Amani">
-    </div>
-    <div style="flex:1;">
-      <h2 class="about__subtitle">I'm Amani</h2>
-      <p class="about__text">I am a passionate tech innovator and developer specializing in web development, Python programming, IoT & Robotics, and UI/UX design. I create professional, user-friendly, and visually appealing solutions, demonstrating practical STEM applications in real projects.</p>
-    </div>
-  </div>
-</section>
+    <main class="l-main">
+        <!--===== HOME =====-->
+        <section class="home bd-grid" id="home">
+            <div class="home__data">
+                <h1 class="home__title">Hi,<br>I'm <span class="home__title-color">Amani</span><br> Web Designer</h1>
+                <a href="#contact" class="button">Contact</a>
+            </div>
 
-<!-- SKILLS -->
-<section class="skills section" id="skills">
-  <h2 class="section-title">Skills</h2>
-  <div class="skills__container bd-grid">
-    <div class="skills__data">
-      <div class="skills__names"><i class='bx bxl-html5 skills__icon'></i> HTML5</div>
-      <div class="skills__bar-container">
-        <div class="skills__bar" data-percentage="95"><span class="skills__percentage">80%</span></div>
-      </div>
-    </div>
-    <div class="skills__data">
-      <div class="skills__names"><i class='bx bxl-css3 skills__icon'></i> CSS3</div>
-      <div class="skills__bar-container">
-        <div class="skills__bar" data-percentage="90"><span class="skills__percentage">70%</span></div>
-      </div>
-    </div>
-    <div class="skills__data">
-      <div class="skills__names"><i class='bx bxl-javascript skills__icon'></i> JavaScript</div>
-      <div class="skills__bar-container">
-        <div class="skills__bar" data-percentage="80"><span class="skills__percentage">70%</span></div>
-      </div>
-    </div>
-    <div class="skills__data">
-      <div class="skills__names"><i class='bx bxs-paint skills__icon'></i> UI/UX</div>
-      <div class="skills__bar-container">
-        <div class="skills__bar" data-percentage="85"><span class="skills__percentage">10%</span></div>
-      </div>
-    </div>
-    <div class="skills__data">
-      <div class="skills__names"><i class='bx bxl-python skills__icon'></i> Python</div>
-      <div class="skills__bar-container">
-        <div class="skills__bar" data-percentage="80"><span class="skills__percentage">90%</span></div>
-      </div>
-    </div>
-    <div class="skills__data">
-      <div class="skills__names"><i class='bx bxl-arduino skills__icon'></i> IoT & Robotics</div>
-      <div class="skills__bar-container">
-        <div class="skills__bar" data-percentage="70"><span class="skills__percentage">80%</span></div>
-      </div>
-    </div>
-  </div>
-</section>
+            <div class="home__social">
+                <a href="https://github.com/angelaaa1ww-prog/inspire-steam" target="_blank" class="home__social-icon"><i class='bx bxl-github'></i></a>
+                <a href="https://www.instagram.com/instrumental_amani/" target="_blank" class="home__social-icon"><i class='bx bxl-instagram' ></i></a>
+            </div>
 
-<!-- WORK / DEMONSTRATIONS -->
-<section class="work section" id="work">
-  <h2 class="section-title">Demonstrations</h2>
+            <div class="home__img">
+                <svg class="home__blob" viewBox="0 0 479 467" xmlns="http://www.w3.org/2000/svg">
+                    <mask id="mask0" mask-type="alpha">
+                        <path d="M9.19024 145.964C34.0253 76.5814 114.865 54.7299 184.111 29.4823C245.804 6.98884 311.86 -14.9503 370.735 14.143C431.207 44.026 467.948 107.508 477.191 174.311C485.897 237.229 454.931 294.377 416.506 344.954C373.74 401.245 326.068 462.801 255.442 466.189C179.416 469.835 111.552 422.137 65.1576 361.805C17.4835 299.81 -17.1617 219.583 9.19024 145.964Z"/>
+                    </mask>
+                    <g mask="url(#mask0)">
+                        <path d="M9.19024 145.964C34.0253 76.5814 114.865 54.7299 184.111 29.4823C245.804 6.98884 311.86 -14.9503 370.735 14.143C431.207 44.026 467.948 107.508 477.191 174.311C485.897 237.229 454.931 294.377 416.506 344.954C373.74 401.245 326.068 462.801 255.442 466.189C179.416 469.835 111.552 422.137 65.1576 361.805C17.4835 299.81 -17.1617 219.583 9.19024 145.964Z"/>
+                        <image class="home__blob-img" x="0" y="-10" href="/Web_basics/Assets/Image/BeautyPlus_20260223140613211_save.jpg"/>
+                    </g>
+                </svg>
+            </div>
+        </section>
 
-  <!-- Python -->
-  <div class="work__sector">
-    <h3>Python Projects</h3>
-    <p>Worked on algorithms, scripts, and practical programming challenges demonstrating Python skills.</p>
-    <div class="work__container">
-      <a href="assets/demo/python1.png" class="work__img"><img src="/Web_basics/Assets/Image/Screenshot 2026-03-26 153651.png" alt="Python Demo 1"></a>
-      <a href="assets/demo/python2.png" class="work__img"><img src="/Web_basics/Assets/Image/Screenshot 2026-03-26 153902.png" alt="Python Demo 2"></a>
-      <a href="assets/demo/python3.png" class="work__img"><img src="/Web_basics/Assets/Image/Screenshot 2026-03-26 154203.png" alt="Python Demo 3"></a>
-    </div>
-    <div style="text-align:center; margin-top:10px;">
-      <a href="https://github.com/angelaaa1ww-prog/inspire-steam/tree/main/python-basics" target="_blank" class="button"><i class='bx bxl-github'></i> GitHub</a>
-    </div>
-  </div>
+        <!--===== ABOUT =====-->
+        <section class="about section " id="about">
+            <h2 class="section-title">About</h2>
+            <div class="about__container bd-grid">
+                <div class="about__img">
+                    <img src="/Web_basics/Assets/Image/BeautyPlus_20260223140613211_save.jpg" alt="Amani Profile Picture">
+                </div>
+                
+                <div>
+                    <h2 class="about__subtitle">I'm Amani</h2>
+                    <p class="about__text">
+                        I am a passionate web designer, developer, and tech enthusiast. I specialize in creating interactive web experiences, designing user interfaces, and exploring projects in Python, IoT, Robotics, and UI/UX design. I combine creativity with technical skills to deliver high-quality projects that solve real-world problems.
+                    </p>           
+                </div>                                   
+            </div>
+        </section>
 
-  <!-- Web -->
-  <div class="work__sector">
-    <h3>Web Development</h3>
-    <p>HTML, CSS, JavaScript projects including responsive layouts and interactive elements.</p>
-    <div class="work__container">
-      <a href="assets/demo/web1.png" class="work__img"><img src="/Web_basics/Assets/Image/Screenshot 2026-03-26 211204.png" alt="Web Demo 1"></a>
-      <a href="assets/demo/web2.png" class="work__img"><img src="/Web_basics/Assets/Image/Screenshot 2026-03-26 154733.png" alt="Web Demo 2"></a>
-      <a href="assets/demo/web3.png" class="work__img"><img src="/Web_basics/Assets/Image/Screenshot 2026-03-26 154754.png" alt="Web Demo 3"></a>
-    </div>
-    <div style="text-align:center; margin-top:10px;">
-      <a href="https://github.com/angelaaa1ww-prog/inspire-steam/tree/main/Web_basics" target="_blank" class="button"><i class='bx bxl-github'></i> GitHub</a>
-    </div>
-  </div>
+        <!--===== SKILLS =====-->
+        <section class="skills section" id="skills">
+            <h2 class="section-title">Skills</h2>
+            <div class="skills__container bd-grid">          
+                <div>
+                    <h2 class="skills__subtitle">Professional Skills</h2>
+                    <p class="skills__text">I work with modern technologies and design principles to build functional and visually appealing projects.</p>
 
-  <!-- UI/UX -->
-  <div class="work__sector">
-    <h3>UI/UX Design</h3>
-    <p>Wireframes, mockups, and interactive designs showcasing design thinking and interface skills.</p>
-    <div class="work__container">
-      <a href="assets/demo/uiux1.png" class="work__img"><img src="assets/demo/uiux1.png" alt="UI/UX Demo 1"></a>
-      <a href="assets/demo/uiux2.png" class="work__img"><img src="assets/demo/uiux2.png" alt="UI/UX Demo 2"></a>
-      <a href="assets/demo/uiux3.png" class="work__img"><img src="assets/demo/uiux3.png" alt="UI/UX Demo 3"></a>
-    </div>
-    <div style="text-align:center; margin-top:10px;">
-      <a href="https://github.com/angelaaa1ww-prog/inspire-steam" target="_blank" class="button"><i class='bx bxl-github'></i> GitHub</a>
-    </div>
-  </div>
+                    <div class="skills__data">
+                        <div class="skills__names">
+                            <i class='bx bxl-html5 skills__icon'></i>
+                            <span class="skills__name">HTML5</span>
+                        </div>
+                        <div class="skills__bar skills__html"></div>
+                        <div><span class="skills__percentage">95%</span></div>
+                    </div>
 
-  <!-- IoT & Robotics -->
-  <div class="work__sector">
-    <h3>IoT & Robotics</h3>
-    <p>Practical IoT setups and robotics automation projects demonstrated via videos.</p>
-    <div class="work__container">
-      <a href="assets/demo/iot1.mp4" class="work__img"><video src="/Web_basics/Assets/video/VID_20260314_204908.mp4" controls></video></a>
-      <a href="assets/demo/iot2.mp4" class="work__img"><video src="/Web_basics/Assets/video/Screen Recording 2026-03-26 164529.mp4" controls></video></a>
-      <a href="assets/demo/iot3.mp4" class="work__img"><video src="/Web_basics/Assets/video/VID_20260318_142734.mp4" controls></video></a>
-    </div>
-    <div style="text-align:center; margin-top:10px;">
-      <a href="https://github.com/angelaaa1ww-prog/inspire-steam/tree/main/IOT" target="_blank" class="button"><i class='bx bxl-github'></i> GitHub</a>
-    </div>
-  </div>
+                    <div class="skills__data">
+                        <div class="skills__names">
+                            <i class='bx bxl-css3 skills__icon'></i>
+                            <span class="skills__name">CSS3</span>
+                        </div>
+                        <div class="skills__bar skills__css"></div>
+                        <div><span class="skills__percentage">85%</span></div>
+                    </div>
 
-</section>
+                    <div class="skills__data">
+                        <div class="skills__names">
+                            <i class='bx bxl-javascript skills__icon' ></i>
+                            <span class="skills__name">JavaScript</span>
+                        </div>
+                        <div class="skills__bar skills__js"></div>
+                        <div><span class="skills__percentage">65%</span></div>
+                    </div>
 
-<!-- CONTACT -->
-<section class="contact section" id="contact">
-  <h2 class="section-title">Contact</h2>
-  <div class="contact__container bd-grid">
-    <form action="" class="contact__form">
-      <input type="text" placeholder="Name" class="contact__input" required>
-      <input type="email" placeholder="Email" class="contact__input" required>
-      <textarea cols="0" rows="10" class="contact__input" placeholder="Message" required></textarea>
-      <input type="submit" value="Send Message" class="contact__button button">
-    </form>
-  </div>
-</section>
+                    <div class="skills__data">
+                        <div class="skills__names">
+                            <i class='bx bxs-paint skills__icon'></i>
+                            <span class="skills__name">UI/UX</span>
+                        </div>
+                        <div class="skills__bar skills__ux"></div>
+                        <div><span class="skills__percentage">85%</span></div>
+                    </div>
+                </div>
+                
+                <div>              
+                    <img src="/Web_basics/Assets/Image/1234.jpg" alt="" class="skills__img">
+                </div>
+            </div>
+        </section>
 
-<!-- FOOTER -->
-<footer class="footer">
-  <p class="footer__title">Amani</p>
-  <div class="footer__social">
-    <a href="https://github.com/angelaaa1ww-prog/inspire-steam"><i class='bx bxl-github'></i></a>
-    <a href="https://www.instagram.com/instrumental_amani/"><i class='bx bxl-instagram'></i></a>
-  </div>
-  <p class="footer__copy">&#169; Amani. All rights reserved</p>
-</footer>
+        <!--===== WORK =====-->
+        <section class="work section" id="work">
+            <h2 class="section-title">Work</h2>
+            
+            <!-- Python Project -->
+            <div class="project">
+                <h3 class="project-title">Python Projects</h3>
+                <p>Building automation scripts, data analysis tools, and small AI experiments using Python. Focused on problem-solving and efficiency.</p>
+                <div class="project-gallery">
+                    <img src="/Web_basics/Assets/Image/Screenshot 2026-03-26 153651.png" alt="Python Demo 1" onclick="openModal(this)">
+                    <img src="/Web_basics/Assets/Image/Screenshot 2026-03-26 153902.png" alt="Python Demo 2" onclick="openModal(this)">
+                    <img src="/Web_basics/Assets/Image/Screenshot 2026-03-26 154203.png" alt="Python Demo 3" onclick="openModal(this)">
+                </div>
+            </div>
 
-<!-- Lightbox -->
-<div class="lightbox" id="lightbox">
-  <span class="close">&times;</span>
-  <img id="lightbox-img" src="">
-  <video id="lightbox-video" src="" controls style="display:none;"></video>
-</div>
+            <!-- IoT & Robotics Project -->
+            <div class="project">
+                <h3 class="project-title">IoT & Robotics</h3>
+                <p>Designing embedded systems and robotics prototypes. Integrating sensors, actuators, and IoT communication for smart automation.</p>
+                <div class="project-gallery">
+                    <video src="/Web_basics/Assets/video/VID_20260318_142734.mp4" onclick="openModal(this)" controls muted></video>
+                    <video src="/Web_basics/Assets/video/VID_20260314_204908.mp4" onclick="openModal(this)" controls muted></video>
+                    <video src="/Web_basics/Assets/video/Screen Recording 2026-03-26 164529.mp4" onclick="openModal(this)" controls muted></video>
+                   
+                </div>
+            </div>
 
-<script>
-const navToggle = document.getElementById('nav-toggle');
-const navMenu = document.getElementById('nav-menu');
-navToggle.addEventListener('click', ()=> navMenu.classList.toggle('show'));
+            <!-- Web Development Project -->
+            <div class="project">
+                <h3 class="project-title">Web Development (HTML/CSS/JS)</h3>
+                <p>Developed responsive websites, interactive UI components, and dynamic pages using HTML, CSS, and JavaScript. Focused on user-friendly design and performance.</p>
+                <div class="project-gallery">
+                    <img src="/Web_basics/Assets/Image/Screenshot 2026-03-26 154733.png" alt="Web Demo 1" onclick="openModal(this)">
+                    <img src="/Web_basics/Assets/Image/Screenshot 2026-03-26 154754.png" alt="Web Demo 2" onclick="openModal(this)">
+                    <img src="/Web_basics/Assets/Image/Screenshot 2026-03-26 155034.png" alt="Web Demo 3" onclick="openModal(this)">
+                </div>
+            </div>
 
-// Skills animation
-const skillBars = document.querySelectorAll('.skills__bar');
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if(entry.isIntersecting){
-      const bar = entry.target;
-      const percentage = bar.dataset.percentage;
-      bar.style.width = percentage + '%';
-    }
-  });
-}, { threshold:0.5 });
-skillBars.forEach(bar => observer.observe(bar));
+            <!-- UI/UX Project -->
+            <div class="project">
+                <h3 class="project-title">UI/UX Design</h3>
+                <p>Creating wireframes, prototypes, and visual designs to improve usability and user experience across web and mobile platforms.</p>
+                <div class="project-gallery">
+                    <img src="assets/img/uiux1.jpg" alt="UI/UX Demo 1" onclick="openModal(this)">
+                    <img src="assets/img/uiux2.jpg" alt="UI/UX Demo 2" onclick="openModal(this)">
+                    <img src="assets/img/uiux3.jpg" alt="UI/UX Demo 3" onclick="openModal(this)">
+                </div>
+            </div>
+        </section>
 
-// Lightbox
-const lightbox = document.getElementById('lightbox');
-const lbImg = document.getElementById('lightbox-img');
-const lbVideo = document.getElementById('lightbox-video');
-const workItems = document.querySelectorAll('.work__img');
+        <!--===== CONTACT =====-->
+        <section class="contact section" id="contact">
+            <h2 class="section-title">Contact</h2>
 
-workItems.forEach(item => {
-  item.addEventListener('click', e=>{
-    e.preventDefault();
-    const img = item.querySelector('img');
-    const video = item.querySelector('video');
-    if(img){
-      lbImg.src = img.src;
-      lbImg.style.display='block';
-      lbVideo.style.display='none';
-    }
-    if(video){
-      lbVideo.src = video.src;
-      lbVideo.style.display='block';
-      lbImg.style.display='none';
-    }
-    lightbox.style.display='flex';
-  });
-});
+            <div class="contact__container bd-grid">
+                <form action="" class="contact__form">
+                    <input type="text" placeholder="Name" class="contact__input">
+                    <input type="email" placeholder="Email" class="contact__input">
+                    <textarea placeholder="Your Message" class="contact__input"></textarea>
+                    <input type="submit" value="Submit" class="contact__button button">
+                </form>
+            </div>
+        </section>
+    </main>
 
-document.querySelector('.lightbox .close').addEventListener('click', ()=>{
-  lightbox.style.display='none';
-  lbVideo.pause();
-});
-</script>
+    <!--===== FOOTER =====-->
+    <footer class="footer">
+        <p class="footer__title">Amani</p>
+        <div class="footer__social">
+            <a href="https://github.com/angelaaa1ww-prog/inspire-steam" class="footer__icon"><i class='bx bxl-github' ></i></a>
+            <a href="https://www.instagram.com/instrumental_amani/" class="footer__icon"><i class='bx bxl-instagram' ></i></a>
+        </div>
+        <p class="footer__copy">&#169; Amani. All rights reserved</p>
+    </footer>
+
+    <!--===== SCROLL REVEAL =====-->
+    <script src="https://unpkg.com/scrollreveal"></script>
+
+    <!--===== MAIN JS =====-->
+    <script src="assets/js/main.js"></script>
+
+    <script>
+        // Modal open/close
+        function openModal(element){
+            let modal = document.createElement('div');
+            modal.className = 'modal';
+            modal.onclick = function(){ document.body.removeChild(modal); };
+            
+            let content;
+            if(element.tagName === 'IMG'){
+                content = document.createElement('img');
+                content.src = element.src;
+            } else if(element.tagName === 'VIDEO'){
+                content = document.createElement('video');
+                content.src = element.src;
+                content.controls = true;
+                content.autoplay = true;
+            }
+            content.className = 'modal-content';
+            modal.appendChild(content);
+
+            let closeBtn = document.createElement('span');
+            closeBtn.innerHTML = '&times;';
+            closeBtn.className = 'modal-close';
+            closeBtn.onclick = function(e){
+                e.stopPropagation();
+                document.body.removeChild(modal);
+            };
+            modal.appendChild(closeBtn);
+
+            document.body.appendChild(modal);
+            modal.style.display = 'block';
+        }
+    </script>
 </body>
 </html>
