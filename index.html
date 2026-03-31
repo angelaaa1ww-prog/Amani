@@ -417,21 +417,23 @@
             modal.style.display = 'block';
         }
     </script>
-            const typedText = ["Web Developer", "UI/UX Designer", "Tech Creator", "Python & IoT Enthusiast"];
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const typedText = ["Web Developer", "UI/UX Designer", "Tech Creator", "Python & IoT Enthusiast"];
         let i = 0, j = 0;
         const typingSpan = document.querySelector(".typing");
         let isDeleting = false;
-        
+    
         function type() {
             if(!typingSpan) return;
-        
+    
             let current = typedText[i];
             if(isDeleting){
                 typingSpan.textContent = current.substring(0, j--);
             } else {
                 typingSpan.textContent = current.substring(0, j++);
             }
-        
+    
             if(!isDeleting && j === current.length){
                 isDeleting = true;
                 setTimeout(type, 1000);
@@ -443,41 +445,9 @@
                 setTimeout(type, isDeleting ? 50 : 100);
             }
         }
-        
+    
         type();
-    <div class="cursor-glow"></div>
-            /* ===== TYPING EFFECT ===== */
-        const roles = ["Web Developer","UI/UX Designer","Tech Creator"];
-        let i=0,j=0,current="",isDeleting=false;
-        
-        function type(){
-            current = roles[i];
-            document.querySelector(".typing").textContent = current.substring(0,j);
-        
-            if(!isDeleting && j<current.length){
-                j++;
-                setTimeout(type,100);
-            } else if(isDeleting && j>0){
-                j--;
-                setTimeout(type,50);
-            } else {
-                isDeleting = !isDeleting;
-                if(!isDeleting) i=(i+1)%roles.length;
-                setTimeout(type,1000);
-            }
-        }
-        type();
-        
-        /* ===== CURSOR GLOW ===== */
-        document.addEventListener("mousemove", e=>{
-            const glow=document.querySelector(".cursor-glow");
-            glow.style.left=e.clientX+"px";
-            glow.style.top=e.clientY+"px";
-        });
-        
-        /* ===== SCROLL REVEAL ENHANCED ===== */
-        ScrollReveal().reveal('.section-title', { delay: 200, origin: 'top', distance: '30px' });
-        ScrollReveal().reveal('.project', { delay: 200, origin: 'bottom', distance: '40px', interval: 100 });
-        ScrollReveal().reveal('.skills__data', { interval: 100 });
+    });
+</script>
 </body>
 </html>
