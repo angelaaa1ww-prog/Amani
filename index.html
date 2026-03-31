@@ -177,12 +177,47 @@
     }
     
     /* blinking cursor */
-    @keyframes blink {
-        0%, 50%, 100% { opacity: 1; }
-        25%, 75% { opacity: 0; }
+        @keyframes blink {
+            0%, 50%, 100% { opacity: 1; }
+            25%, 75% { opacity: 0; }
+        }
+            section, .project {
+        opacity: 0;
+        transform: translateY(40px);
+        transition: all 0.8s ease;
     }
-    </style>
-</head>
+    
+    section.show, .project.show {
+        opacity: 1;
+        transform: translateY(0);
+    }
+            .project {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .project:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    }
+            .project-gallery img, .project-gallery video {
+        transition: transform 0.4s ease;
+    }
+    
+    .project-gallery img:hover, .project-gallery video:hover {
+        transform: scale(1.1);
+    }
+            #cursor {
+        width: 15px;
+        height: 15px;
+        background: #4db5ff;
+        border-radius: 50%;
+        position: fixed;
+        pointer-events: none;
+        z-index: 9999;
+        transform: translate(-50%, -50%);
+    }
+        </style>
+    </head>
 <body>
     <!--===== HEADER =====-->
     <header class="l-header">
@@ -449,5 +484,61 @@
         type();
     });
 </script>
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+        const elements = document.querySelectorAll("section, .project");
+    
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting){
+                    entry.target.classList.add("show");
+                }
+            });
+        }, { threshold: 0.2 });
+    
+        elements.forEach(el => observer.observe(el));
+    });
+</script>
+<script>
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function(e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute("href"))
+                .scrollIntoView({ behavior: "smooth" });
+        });
+    });
+</script>
+<script>
+    const sections = document.querySelectorAll("section");
+    const navLinks = document.querySelectorAll(".nav__link");
+    
+    window.addEventListener("scroll", () => {
+        let current = "";
+    
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop - 100;
+            if(pageYOffset >= sectionTop){
+                current = section.getAttribute("id");
+            }
+        });
+    
+        navLinks.forEach(link => {
+            link.classList.remove("active-link");
+            if(link.getAttribute("href") === "#" + current){
+                link.classList.add("active-link");
+            }
+        });
+    });
+</script>
+<script>
+    document.addEventListener("mousemove", (e) => {
+        const cursor = document.getElementById("cursor");
+        if(cursor){
+            cursor.style.left = e.clientX + "px";
+            cursor.style.top = e.clientY + "px";
+        }
+    });
+</script>
+<div id="cursor"></div>
 </body>
 </html>
