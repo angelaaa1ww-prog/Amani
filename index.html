@@ -144,6 +144,43 @@
         html {
             scroll-behavior: smooth;
         }
+        /* ===== HERO TYPING COLOR ===== */
+        .typing {
+            color: #4db5ff; /* bright blue, matches accent */
+            font-weight: bold;
+            font-size: 2rem; /* similar size to "A Web Designer" */
+            display: inline-block;
+        }
+        /* Gradient + Glow typing effect */
+    .typing {
+        font-weight: bold;
+        font-size: 2rem;
+        display: inline-block;
+        background: linear-gradient(90deg, #4db5ff, #00ffb3, #ff4db5);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: glow 1.5s ease-in-out infinite alternate;
+        position: relative;
+    }
+    
+    .typing::after {
+        content: '|';
+        margin-left: 2px;
+        animation: blink 0.7s infinite;
+    }
+    
+    /* glow pulse */
+    @keyframes glow {
+        0% { filter: drop-shadow(0 0 5px #4db5ff); }
+        50% { filter: drop-shadow(0 0 15px #00ffb3); }
+        100% { filter: drop-shadow(0 0 20px #ff4db5); }
+    }
+    
+    /* blinking cursor */
+    @keyframes blink {
+        0%, 50%, 100% { opacity: 1; }
+        25%, 75% { opacity: 0; }
+    }
     </style>
 </head>
 <body>
@@ -174,7 +211,9 @@
         <!--===== HOME =====-->
         <section class="home bd-grid" id="home">
             <div class="home__data">
-                <h1 class="home__title">Hi,<br>I'm <span class="home__title-color">Amani</span><br> <span class="typing"></span></h1>
+                <h1 class="home__title">Hi,<br>I'm <span class="home__title-color">Amani</span><br>
+                    <span class="typing"></span>
+                </h1>
                 <a href="#contact" class="button">Contact</a>
             </div>
 
@@ -378,6 +417,34 @@
             modal.style.display = 'block';
         }
     </script>
+            const typedText = ["Web Developer", "UI/UX Designer", "Tech Creator", "Python & IoT Enthusiast"];
+        let i = 0, j = 0;
+        const typingSpan = document.querySelector(".typing");
+        let isDeleting = false;
+        
+        function type() {
+            if(!typingSpan) return;
+        
+            let current = typedText[i];
+            if(isDeleting){
+                typingSpan.textContent = current.substring(0, j--);
+            } else {
+                typingSpan.textContent = current.substring(0, j++);
+            }
+        
+            if(!isDeleting && j === current.length){
+                isDeleting = true;
+                setTimeout(type, 1000);
+            } else if(isDeleting && j === 0){
+                isDeleting = false;
+                i = (i + 1) % typedText.length;
+                setTimeout(type, 500);
+            } else {
+                setTimeout(type, isDeleting ? 50 : 100);
+            }
+        }
+        
+        type();
     <div class="cursor-glow"></div>
             /* ===== TYPING EFFECT ===== */
         const roles = ["Web Developer","UI/UX Designer","Tech Creator"];
