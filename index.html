@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <!-- =====BOX ICONS===== -->
     <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
@@ -241,6 +243,18 @@
         margin: 10px auto;
         border-radius: 5px;
         box-shadow: 0 0 10px #4db5ff;
+        .tech-tags {
+        margin-top: 10px;
+    }
+    
+    .tech-tags span {
+        background: rgba(77,181,255,0.1);
+        color: #4db5ff;
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-size: 0.8rem;
+        margin-right: 5px;
+    }
     }
         </style>
     </head>
@@ -309,7 +323,8 @@
                     <h2 class="about__subtitle">I'm Amani</h2>
                     <p class="about__text">
                         I am a passionate web designer, developer, and tech enthusiast. I specialize in creating interactive web experiences, designing user interfaces, and exploring projects in Python, IoT, Robotics, and UI/UX design. I combine creativity with technical skills to deliver high-quality projects that solve real-world problems.
-                    </p>           
+                    </p> 
+                    <img src="https://github-readme-stats.vercel.app/api?username=angelaaa1ww-prog&show_icons=true&theme=tokyonight" alt="GitHub Stats" style="width:100%; max-width:400px; margin-top:20px;">
                 </div>                                   
             </div>
         </section>
@@ -373,10 +388,19 @@
             <div class="project">
                 <h3 class="project-title">Python Projects</h3>
                 <p>Building automation scripts, data analysis tools, and small AI experiments using Python. Focused on problem-solving and efficiency.</p>
+                                <div class="tech-tags">
+                    <span>Python</span>
+                    <span>AI</span>
+                    <span>Automation</span>
+                </div>
                 <div class="project-gallery">
                     <img src="assets/img/Screenshot 2026-03-26 153651.png" alt="Python Demo 1" onclick="openModal(this)">
                     <img src="assets/img/Screenshot 2026-03-26 153902.png" alt="Python Demo 2" onclick="openModal(this)">
                     <img src="assets/img/Screenshot 2026-03-26 154203.png" alt="Python Demo 3" onclick="openModal(this)">
+                </div>
+                                <div class="project-links">
+                    <a href="#" class="button">View Code</a>
+                    <a href="#" class="button">Live Demo</a>
                 </div>
             </div>
 
@@ -384,11 +408,20 @@
             <div class="project">
                 <h3 class="project-title">IoT & Robotics</h3>
                 <p>Designing embedded systems and robotics prototypes. Integrating sensors, actuators, and IoT communication for smart automation.</p>
+                                <div class="tech-tags">
+                    <span>Python</span>
+                    <span>AI</span>
+                    <span>Automation</span>
+                </div>
                 <div class="project-gallery">
                     <video src="assets/img/demo2.mp4" onclick="openModal(this)" controls muted></video>
                     <video src="assets/img/demo1.mp4" onclick="openModal(this)" controls muted></video>
                     <video src="assets/img/demo.mp4" onclick="openModal(this)" controls muted></video>
                    
+                </div>
+                                <div class="project-links">
+                    <a href="#" class="button">View Code</a>
+                    <a href="#" class="button">Live Demo</a>
                 </div>
             </div>
 
@@ -401,16 +434,29 @@
                     <img src="assets/img/Screenshot 2026-03-26 154754.png" alt="Web Demo 2" onclick="openModal(this)">
                     <img src="assets/img/Screenshot 2026-03-26 155034.png" alt="Web Demo 3" onclick="openModal(this)">
                 </div>
+                                <div class="project-links">
+                    <a href="#" class="button">View Code</a>
+                    <a href="#" class="button">Live Demo</a>
+                </div>
             </div>
 
             <!-- UI/UX Project -->
             <div class="project">
                 <h3 class="project-title">UI/UX Design</h3>
                 <p>Creating wireframes, prototypes, and visual designs to improve usability and user experience across web and mobile platforms.</p>
+                                <div class="tech-tags">
+                    <span>Python</span>
+                    <span>AI</span>
+                    <span>Automation</span>
+                </div>
                 <div class="project-gallery">
                     <img src="assets/img/uiux1.jpg" alt="UI/UX Demo 1" onclick="openModal(this)">
                     <img src="assets/img/uiux2.jpg" alt="UI/UX Demo 2" onclick="openModal(this)">
                     <img src="assets/img/uiux3.jpg" alt="UI/UX Demo 3" onclick="openModal(this)">
+                </div>
+                                <div class="project-links">
+                    <a href="#" class="button">View Code</a>
+                    <a href="#" class="button">Live Demo</a>
                 </div>
             </div>
         </section>
@@ -425,6 +471,7 @@
                     <input type="email" placeholder="Email" class="contact__input">
                     <textarea placeholder="Your Message" class="contact__input"></textarea>
                     <input type="submit" value="Submit" class="contact__button button">
+                    <form action="https://formspree.io/f/your-id" method="POST">
                 </form>
             </div>
         </section>
